@@ -1,0 +1,28 @@
+{
+  "name": "baileys-endpoint",
+  "version": "1.0.0",
+  "description": "Baileys API using express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./app.js",
+    "dev": "nodemon ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wasender",
+    "baileys",
+    "bailysAPI"
+  ],
+  "author": "Danar N",
+  "license": "ISC",
+  "dependencies": {
+    "@adiwajshing/baileys": "^3.3.0",
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "nodemon": "^2.0.6",
+    "qrcode": "^1.4.4",
+    "socket.io": "^3.0.2"
+  }
+}
