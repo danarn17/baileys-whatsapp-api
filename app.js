@@ -67,6 +67,15 @@ io.on("connection", function (socket) {
     }
   });
 });
+
+let lastqr;
+conn.on('qr', qr => {
+  lastqr = qr
+});
+app.get("/lastqr", (req, res) => {
+  res.status(200).json({ lastqr })
+});
+
 app.get("/qr", (req, res) => {
   if (
     fs.existsSync("./auth_info.json") &&
