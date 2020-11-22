@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./app.js",
     "dev": "nodemon ./app.js",
+    "front":"npx http-server -P http://127.0.0.1:5000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -24,5 +25,8 @@
     "nodemon": "^2.0.6",
     "qrcode": "^1.4.4",
     "socket.io": "^3.0.2"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3"
   }
 }
