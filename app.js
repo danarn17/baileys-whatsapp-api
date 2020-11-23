@@ -4,9 +4,7 @@ const app = require("express")();
 const server = require("http").createServer(app);
 const fs = require("fs");
 const qrcode = require("qrcode");
-const io = require("socket.io")(server, {
-  transports: ["websocket"],
-});
+const io = require("socket.io")(server);
 const axios = require("axios");
 const port = process.env.PORT || 5000;
 const {
