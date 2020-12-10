@@ -2,10 +2,8 @@ const { WAConnection } = require("@adiwajshing/baileys");
 const handler = require('./handler')
 
 // It'll be shared across all handlers
-// default case
 const _share = {
-  name: 'example',
-  color: true
+  jid: null,
 }
 
 module.exports = async ({creds = null, loggerLevel = null, db, share = _share, connWS }) => {
