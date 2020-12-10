@@ -8,7 +8,7 @@ const _share = {
   color: true
 }
 
-module.exports = async ({ db, share = _share, connWS }) => {
+module.exports = async ({creds = null, loggerLevel = null, db, share = _share, connWS }) => {
   const connWA = new WAConnection()   
   const hand = handler({ db, share, connWA, connWS }) 
   
@@ -31,6 +31,13 @@ module.exports = async ({ db, share = _share, connWS }) => {
   connWA.on('group-update', hand.groupUpdate)
   connWA.on('received-pong', hand.receivedPong)
   
+  if (creds) {
+    connWA.loadAuthInfo(authInfo)
+  }
+  if (loggerLevel) {
+    conn.logger.level = loggerLevel
+  }
+
   await connWA.connect()
   
   return connWA
