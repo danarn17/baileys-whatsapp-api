@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "df266772-7554-49bf-a4ce-412476009267",
+		"name": "danarn17",
+		"description": "Baileys API using express",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/new",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"webhook\": \"https://123412341234.ngrok.io/\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/new",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/up",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/:number/up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						":number",
+						"up"
+					],
+					"variable": [
+						{
+							"key": "number",
+							"value": "123412341234"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/down",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/:number/down",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						":number",
+						"down"
+					],
+					"variable": [
+						{
+							"key": "number",
+							"value": "123412341234"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
