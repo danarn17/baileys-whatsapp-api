@@ -1,0 +1,8 @@
+{
+  "name": "baileys-endpoint",
+  "description": "Baileys API using express",
+  "repository": "https://github.com/danarn17/baileys-whatsapp-api",
+  "logo": "https://avatars2.githubusercontent.com/u/39963063",
+  "keywords": ["whatsapp", "api", "heroku"],
+  "image": "heroku/nodejs"
+}
