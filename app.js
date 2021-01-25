@@ -68,7 +68,26 @@ app.get('/:number/sendtextmessage/to/:to/message/:msg', async (req, res) => {
   } else {
     res.status(404)
   }
+})
 
+app.get('/:number/contacts', (req, res) => {
+  const number = req.params.number
+
+  if (patchpanel.has(number)) {
+    const { WAC } = patchpanel.get(number)
+    if (WAC.contacts) {
+      const contacts = Object.keys(WAC.contacts)
+        .filter(el => el.indexOf('-') === -1)
+        .map(el => el.split('@s.whatsapp.net')[0])
+
+      res.status(200).json(contacts)
+    } else {
+      res.status(400)
+    }
+
+  } else {
+    res.status(404)
+  }
 })
 
 app.get('/:number/down', async (req, res) => {
