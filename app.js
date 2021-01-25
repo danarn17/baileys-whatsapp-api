@@ -1,4 +1,4 @@
-const { WAConnection } = require('@adiwajshing/baileys')
+const { WAConnection, MessageType } = require('@adiwajshing/baileys')
 const express = require('express')
 const newinstance = require('./newinstance')
 const mkEvents = require('./events')
@@ -47,15 +47,34 @@ app.get('/:number/up', async (req, res) => {
 
     await WAC.connect()
 
-    patchpanel.set(number, WAC)
+    patchpanel.set(number, { WAC, sharedstate })
     res.status(200).json({ type: 'up', number })    
   }
+})
+
+app.get('/:number/sendtextmessage/to/:to/message/:msg', async (req, res) => {
+  const number = req.params.number
+  const to = req.params.to
+  const msg = req.params.msg
+
+  if (patchpanel.has(number)) {
+    if (to && msg) {
+      const { WAC } = patchpanel.get(number)
+      const sent = await WAC.sendMessage(`${to}@s.whatsapp.net`, msg, MessageType.text )
+      res.json(sent)
+    } else {
+      res.status(400)
+    }
+  } else {
+    res.status(404)
+  }
+
 })
 
 app.get('/:number/down', async (req, res) => {
   const { number } = req.params
   if (patchpanel.has(number)) {
-    const WAC = patchpanel.get(number)
+    const { WAC } = patchpanel.get(number)
     WAC.close()
     patchpanel.delete(number)
     res.status(200).json({ type: 'down', number })
