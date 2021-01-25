@@ -1,8 +1,7 @@
-const fs = require('fs')
 const { WAConnection } = require('@adiwajshing/baileys')
 const express = require('express')
 const newinstance = require('./newinstance')
-
+const mkEvents = require('./events')
 const appPort = process.env.APP_PORT || '3000'
 
 const app = express()
@@ -21,24 +20,34 @@ app.post('/new', express.json(), async (req, res) => {
 app.get('/:number/up', async (req, res) => {
   const { number } = req.params
   if (!patchpanel.has(number)) {
-    const WA = new WAConnection() 
-    WA.browserDescription = ['danarn17', 'Chrome', '87']
-    WA.loadAuthInfo(`./auth_info/${number}.json`)
+    const WAC = new WAConnection() 
+    WAC.browserDescription = ['danarn17', 'Chrome', '87']
+    WAC.loadAuthInfo(`./auth_info/${number}.json`)
 
-    WA.on('credentials-updated', async auth => {
-      const creds = {
-        clientID: auth.clientID,
-        serverToken: auth.serverToken,
-        clientToken: auth.clientToken,
-        encKey: auth.encKey.toString('base64'),
-        macKey: auth.macKey.toString('base64')
-      }
-      fs.writeFileSync(`auth_info/${number}.json`, JSON.stringify(creds))
-    })
+    const sharedstate = {}
+    sharedstate.WAC = WAC
 
-    await WA.connect()
+    const events = mkEvents({ number, sharedstate })
+    WAC.on('blocklist-update', events.blocklistUpdate)
+    WAC.on('chat-new', events.chatNew)
+    WAC.on('chat-update', events.chatUpdate)
+    WAC.on('chats-received', events.chatsReceived)
+    WAC.on('close', events.close)
+    WAC.on('connecting', events.connecting)
+    WAC.on('connection-phone-change', events.connectionPhoneChange)
+    WAC.on('contact-update', events.contactUpdate)
+    WAC.on('contacts-received', events.contactsReceived)
+    WAC.on('group-participants-update', events.groupParticipantsUpdate)
+    WAC.on('group-update', events.groupUpdate)
+    WAC.on('initial-data-received', events.initialDataReceived)
+    WAC.on('open', events.open)
+    WAC.on('qr', events.qr)
+    WAC.on('received-pong', events.receivedPong)
+    WAC.on('ws-close', events.wsClose)
 
-    patchpanel.set(number, WA)
+    await WAC.connect()
+
+    patchpanel.set(number, WAC)
     res.status(200).json({ type: 'up', number })    
   }
 })
@@ -46,8 +55,8 @@ app.get('/:number/up', async (req, res) => {
 app.get('/:number/down', async (req, res) => {
   const { number } = req.params
   if (patchpanel.has(number)) {
-    const WA = patchpanel.get(number)
-    WA.close()
+    const WAC = patchpanel.get(number)
+    WAC.close()
     patchpanel.delete(number)
     res.status(200).json({ type: 'down', number })
   }
