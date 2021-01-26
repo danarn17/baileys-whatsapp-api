@@ -84,7 +84,6 @@ app.get('/:number/contacts', (req, res) => {
     } else {
       res.status(400)
     }
-
   } else {
     res.status(404)
   }
@@ -97,6 +96,22 @@ app.get('/:number/down', async (req, res) => {
     WAC.close()
     patchpanel.delete(number)
     res.status(200).json({ type: 'down', number })
+  } else {
+    res.status(404)
+  }
+})
+
+app.post('/:number/listentextmessage', express.json(), async (req, res) => {
+  const { number } = req.params
+  if (patchpanel.has(number)) {
+    const { sharedstate } = patchpanel.get(number)
+    const { webhook } = req.body
+    if (webhook) {
+      sharedstate.listentextmessage = webhook
+      res.status(200).json({ type: 'listentextmessage', webhook, number })
+    }
+  } else {
+    res.status(404)
   }
 })
 
