@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "df266772-7554-49bf-a4ce-412476009267",
+		"_postman_id": "39fd9e2e-d26f-43eb-8729-fdfd224544e9",
 		"name": "danarn17",
 		"description": "Baileys API using express",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -30,7 +30,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"webhook\": \"https://123412341234.ngrok.io/\"\n}",
+					"raw": "{\n    \"webhook\": \"https://d82206d64645.ngrok.io/\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -62,6 +62,99 @@
 					"path": [
 						":number",
 						"up"
+					],
+					"variable": [
+						{
+							"key": "number",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sendtextmessage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/:number/sendtextmessage/to/:to/message/:msg",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						":number",
+						"sendtextmessage",
+						"to",
+						":to",
+						"message",
+						":msg"
+					],
+					"variable": [
+						{
+							"key": "number",
+							"value": "123412341234"
+						},
+						{
+							"key": "to",
+							"value": "432143214321"
+						},
+						{
+							"key": "msg",
+							"value": "Hi!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listentextmessage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"webhook\": \"https://62dbf59028e2.ngrok.io/\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/:number/listentextmessage",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						":number",
+						"listentextmessage"
+					],
+					"variable": [
+						{
+							"key": "number",
+							"value": "123412341234"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contacts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/:number/contacts",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						":number",
+						"contacts"
 					],
 					"variable": [
 						{
