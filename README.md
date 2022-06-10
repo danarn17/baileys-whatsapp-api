@@ -34,7 +34,7 @@ You can read the QRCode from the terminal too.
 ## routes
 - `GET {host}/` hello world
 - `GET {host}/:number/up` start baileys
-- `GET {host}/:number/down` stop bailes
+- `GET {host}/:number/down` stop baileys
 
 [API documentation](./danarn17.postman_collection.json)
 
